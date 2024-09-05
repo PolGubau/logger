@@ -1,5 +1,5 @@
 import React from 'react';
-import { toast } from 'sonner';
+import { toast } from '@codedbypol/logger';
 import { CodeBlock } from '../CodeBlock';
 
 const promiseCode = '`${data.name} toast has been added`';
@@ -85,7 +85,7 @@ const allTypes = [
   },
   {
     name: 'Promise',
-    snippet: `const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Sonner' }), 2000));
+    snippet: `const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Logger' }), 2000));
 
 toast.promise(promise, {
   loading: 'Loading...',
@@ -99,7 +99,7 @@ toast.promise(promise, {
         () =>
           new Promise((resolve) => {
             setTimeout(() => {
-              resolve({ name: 'Sonner' });
+              resolve({ name: 'Logger' });
             }, 2000);
           }),
         {

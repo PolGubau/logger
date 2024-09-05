@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type ToastTypes = 'normal' | 'action' | 'success' | 'info' | 'warning' | 'error' | 'loading' | 'default';
+export type LogTypes = 'normal' | 'action' | 'success' | 'info' | 'warning' | 'error' | 'loading' | 'default';
 
 export type PromiseT<Data = any> = Promise<Data> | (() => Promise<Data>);
 
@@ -9,17 +9,17 @@ export type PromiseTResult<Data = any> =
   | React.ReactNode
   | ((data: Data) => React.ReactNode | string | Promise<React.ReactNode | string>);
 
-export type PromiseExternalToast = Omit<ExternalToast, 'description'>;
+export type PromiseExternalLog = Omit<ExternalToast, 'description'>;
 
-export type PromiseData<ToastData = any> = PromiseExternalToast & {
+export type PromiseData<LogData = any> = PromiseExternalLog & {
   loading?: string | React.ReactNode;
-  success?: PromiseTResult<ToastData>;
+  success?: PromiseTResult<LogData>;
   error?: PromiseTResult;
   description?: PromiseTResult;
   finally?: () => void | Promise<void>;
 };
 
-export interface ToastClassnames {
+export interface LogClassnames {
   toast?: string;
   title?: string;
   description?: string;
@@ -37,7 +37,7 @@ export interface ToastClassnames {
   icon?: string;
 }
 
-export interface ToastIcons {
+export interface LogIcons {
   success?: React.ReactNode;
   info?: React.ReactNode;
   warning?: React.ReactNode;
@@ -51,10 +51,10 @@ export interface Action {
   actionButtonStyle?: React.CSSProperties;
 }
 
-export interface ToastT {
+export interface LogType {
   id: number | string;
   title?: string | React.ReactNode;
-  type?: ToastTypes;
+  type?: LogTypes;
   icon?: React.ReactNode;
   jsx?: React.ReactNode;
   richColors?: boolean;
@@ -67,28 +67,25 @@ export interface ToastT {
   important?: boolean;
   action?: Action | React.ReactNode;
   cancel?: Action | React.ReactNode;
-  onDismiss?: (toast: ToastT) => void;
-  onAutoClose?: (toast: ToastT) => void;
+  onDismiss?: (toast: LogType) => void;
+  onAutoClose?: (toast: LogType) => void;
   promise?: PromiseT;
   cancelButtonStyle?: React.CSSProperties;
   actionButtonStyle?: React.CSSProperties;
   style?: React.CSSProperties;
   unstyled?: boolean;
   className?: string;
-  classNames?: ToastClassnames;
+  classNames?: LogClassnames;
   descriptionClassName?: string;
-  position?: Position;
 }
 
 export function isAction(action: Action | React.ReactNode): action is Action {
   return (action as Action).label !== undefined;
 }
 
-export type Position = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center';
 export interface HeightT {
   height: number;
   toastId: number | string;
-  position: Position;
 }
 
 interface ToastOptions {
@@ -100,15 +97,14 @@ interface ToastOptions {
   actionButtonStyle?: React.CSSProperties;
   duration?: number;
   unstyled?: boolean;
-  classNames?: ToastClassnames;
+  classNames?: LogClassnames;
 }
 
 type CnFunction = (...classes: Array<string | undefined>) => string;
 
-export interface ToasterProps {
+export interface LogListProps {
   invert?: boolean;
   theme?: 'light' | 'dark' | 'system';
-  position?: Position;
   hotkey?: string[];
   richColors?: boolean;
   expand?: boolean;
@@ -130,27 +126,19 @@ export interface ToasterProps {
    * ```
    */
   loadingIcon?: React.ReactNode;
-  icons?: ToastIcons;
+  icons?: LogIcons;
   containerAriaLabel?: string;
   pauseWhenPageIsHidden?: boolean;
   cn?: CnFunction;
 }
 
 export interface ToastProps {
-  toast: ToastT;
-  toasts: ToastT[];
+  toast: LogType;
+  toasts: LogType[];
   index: number;
-  expanded: boolean;
-  invert: boolean;
-  heights: HeightT[];
-  setHeights: React.Dispatch<React.SetStateAction<HeightT[]>>;
-  removeToast: (toast: ToastT) => void;
+  removeToast: (toast: LogType) => void;
   gap?: number;
-  position: Position;
-  visibleToasts: number;
-  expandByDefault: boolean;
   closeButton: boolean;
-  interacting: boolean;
   style?: React.CSSProperties;
   cancelButtonStyle?: React.CSSProperties;
   actionButtonStyle?: React.CSSProperties;
@@ -159,12 +147,10 @@ export interface ToastProps {
   unstyled?: boolean;
   descriptionClassName?: string;
   loadingIcon?: React.ReactNode;
-  classNames?: ToastClassnames;
-  icons?: ToastIcons;
+  classNames?: LogClassnames;
+  icons?: LogIcons;
   closeButtonAriaLabel?: string;
-  pauseWhenPageIsHidden: boolean;
   cn: CnFunction;
-  defaultRichColors?: boolean;
 }
 
 export enum SwipeStateTypes {
@@ -180,6 +166,6 @@ export interface ToastToDismiss {
   dismiss: boolean;
 }
 
-export type ExternalToast = Omit<ToastT, 'id' | 'type' | 'title' | 'jsx' | 'delete' | 'promise'> & {
+export type ExternalToast = Omit<LogType, 'id' | 'type' | 'title' | 'jsx' | 'delete' | 'promise'> & {
   id?: number | string;
 };

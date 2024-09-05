@@ -7,8 +7,8 @@ test.beforeEach(async ({ page }) => {
 test.describe('Basic functionality', () => {
   test('toast is rendered and disappears after the default timeout', async ({ page }) => {
     await page.getByTestId('default-button').click();
-    await expect(page.locator('[data-sonner-toast]')).toHaveCount(1);
-    await expect(page.locator('[data-sonner-toast]')).toHaveCount(0);
+    await expect(page.locator('[data-logger-toast]')).toHaveCount(1);
+    await expect(page.locator('[data-logger-toast]')).toHaveCount(0);
   });
 
   test('various toast types are rendered correctly', async ({ page }) => {
@@ -35,16 +35,16 @@ test.describe('Basic functionality', () => {
 
   test('toast is removed after swiping down', async ({ page }) => {
     await page.getByTestId('default-button').click();
-    await page.hover('[data-sonner-toast]');
+    await page.hover('[data-logger-toast]');
     await page.mouse.down();
     await page.mouse.move(0, 800);
     await page.mouse.up();
-    await expect(page.locator('[data-sonner-toast]')).toHaveCount(0);
+    await expect(page.locator('[data-logger-toast]')).toHaveCount(0);
   });
 
   test('dismissible toast is not removed when dragged', async ({ page }) => {
     await page.getByTestId('non-dismissible-toast').click();
-    const toast = page.locator('[data-sonner-toast]');
+    const toast = page.locator('[data-logger-toast]');
     const dragBoundingBox = await toast.boundingBox();
 
     if (!dragBoundingBox) return;
@@ -60,33 +60,33 @@ test.describe('Basic functionality', () => {
   test('toast is removed after swiping up', async ({ page }) => {
     await page.goto('/?position=top-left');
     await page.getByTestId('default-button').click();
-    await page.hover('[data-sonner-toast]');
+    await page.hover('[data-logger-toast]');
     await page.mouse.down();
     await page.mouse.move(0, -800);
     await page.mouse.up();
-    await expect(page.locator('[data-sonner-toast]')).toHaveCount(0);
+    await expect(page.locator('[data-logger-toast]')).toHaveCount(0);
   });
 
   test('toast is not removed when hovered', async ({ page }) => {
     await page.getByTestId('default-button').click();
-    await page.hover('[data-sonner-toast]');
+    await page.hover('[data-logger-toast]');
     const timeout = new Promise((resolve) => setTimeout(resolve, 5000));
     await timeout;
-    await expect(page.locator('[data-sonner-toast]')).toHaveCount(1);
+    await expect(page.locator('[data-logger-toast]')).toHaveCount(1);
   });
 
   test('toast is not removed if duration is set to infinity', async ({ page }) => {
     await page.getByTestId('infinity-toast').click();
-    await page.hover('[data-sonner-toast]');
+    await page.hover('[data-logger-toast]');
     const timeout = new Promise((resolve) => setTimeout(resolve, 5000));
     await timeout;
-    await expect(page.locator('[data-sonner-toast]')).toHaveCount(1);
+    await expect(page.locator('[data-logger-toast]')).toHaveCount(1);
   });
 
   test('toast is not removed when event prevented in action', async ({ page }) => {
     await page.getByTestId('action-prevent').click();
     await page.locator('[data-button]').click();
-    await expect(page.locator('[data-sonner-toast]')).toHaveCount(1);
+    await expect(page.locator('[data-logger-toast]')).toHaveCount(1);
   });
 
   test("toast's auto close callback gets executed correctly", async ({ page }) => {
@@ -96,7 +96,7 @@ test.describe('Basic functionality', () => {
 
   test("toast's dismiss callback gets executed correctly", async ({ page }) => {
     await page.getByTestId('dismiss-toast-callback').click();
-    const toast = page.locator('[data-sonner-toast]');
+    const toast = page.locator('[data-logger-toast]');
     const dragBoundingBox = await toast.boundingBox();
 
     if (!dragBoundingBox) return;
@@ -111,36 +111,36 @@ test.describe('Basic functionality', () => {
 
   test("toaster's theme should be light", async ({ page }) => {
     await page.getByTestId('infinity-toast').click();
-    await expect(page.locator('[data-sonner-toaster]')).toHaveAttribute('data-theme', 'light');
+    await expect(page.locator('[data-logger-toaster]')).toHaveAttribute('data-theme', 'light');
   });
 
   test("toaster's theme should be dark", async ({ page }) => {
     await page.goto('/?theme=dark');
     await page.getByTestId('infinity-toast').click();
-    await expect(page.locator('[data-sonner-toaster]')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.locator('[data-logger-toaster]')).toHaveAttribute('data-theme', 'dark');
   });
 
   test("toaster's theme should be changed", async ({ page }) => {
     await page.getByTestId('infinity-toast').click();
-    await expect(page.locator('[data-sonner-toaster]')).toHaveAttribute('data-theme', 'light');
+    await expect(page.locator('[data-logger-toaster]')).toHaveAttribute('data-theme', 'light');
     await page.getByTestId('theme-button').click();
-    await expect(page.locator('[data-sonner-toaster]')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.locator('[data-logger-toaster]')).toHaveAttribute('data-theme', 'dark');
   });
 
   test('return focus to the previous focused element', async ({ page }) => {
     await page.getByTestId('custom').focus();
     await page.keyboard.press('Enter');
-    await expect(page.locator('[data-sonner-toast]')).toHaveCount(1);
+    await expect(page.locator('[data-logger-toast]')).toHaveCount(1);
     await page.getByTestId('dismiss-button').focus();
     await page.keyboard.press('Enter');
-    await expect(page.locator('[data-sonner-toast]')).toHaveCount(0);
+    await expect(page.locator('[data-logger-toast]')).toHaveCount(0);
     await expect(page.getByTestId('custom')).toBeFocused();
   });
 
   test("toaster's dir prop is reflected correctly", async ({ page }) => {
     await page.goto('/?dir=rtl');
     await page.getByTestId('default-button').click();
-    await expect(page.locator('[data-sonner-toaster]')).toHaveAttribute('dir', 'rtl');
+    await expect(page.locator('[data-logger-toaster]')).toHaveAttribute('dir', 'rtl');
   });
 
   test("toaster respects the HTML's dir attribute", async ({ page }) => {
@@ -148,7 +148,7 @@ test.describe('Basic functionality', () => {
       document.documentElement.setAttribute('dir', 'rtl');
     });
     await page.getByTestId('default-button').click();
-    await expect(page.locator('[data-sonner-toaster]')).toHaveAttribute('dir', 'rtl');
+    await expect(page.locator('[data-logger-toaster]')).toHaveAttribute('dir', 'rtl');
   });
 
   test("toaster respects its own dir attribute over HTML's", async ({ page }) => {
@@ -157,7 +157,7 @@ test.describe('Basic functionality', () => {
       document.documentElement.setAttribute('dir', 'rtl');
     });
     await page.getByTestId('default-button').click();
-    await expect(page.locator('[data-sonner-toaster]')).toHaveAttribute('dir', 'ltr');
+    await expect(page.locator('[data-logger-toaster]')).toHaveAttribute('dir', 'ltr');
   });
 
   test('show correct toast content when updating', async ({ page }) => {

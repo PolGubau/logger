@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
-import type { ToastTypes } from './types';
+import type { LogTypes } from './types';
 
-export const getAsset = (type: ToastTypes): JSX.Element | null => {
+export const getAsset = (type: LogTypes): JSX.Element | null => {
   switch (type) {
     case 'success':
       return SuccessIcon;
@@ -25,10 +25,10 @@ const bars = Array(12).fill(0);
 
 export const Loader = ({ visible }: { visible: boolean }) => {
   return (
-    <div className="sonner-loading-wrapper" data-visible={visible}>
-      <div className="sonner-spinner">
+    <div className="logger-loading-wrapper" data-visible={visible}>
+      <div className="logger-spinner">
         {bars.map((_, i) => (
-          <div className="sonner-loading-bar" key={`spinner-bar-${i}`} />
+          <div className="logger-loading-bar" key={`spinner-bar-${i}`} />
         ))}
       </div>
     </div>

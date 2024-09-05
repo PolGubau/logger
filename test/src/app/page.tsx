@@ -1,7 +1,7 @@
 'use client';
 
+ import { LogList, log } from '@codedbypol/logger';
 import React from 'react';
-import { Toaster, toast } from 'sonner';
 
 const promise = () => new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -16,10 +16,10 @@ export default function Home({ searchParams }: any) {
       <button data-testid="theme-button" className="button" onClick={() => setTheme('dark')}>
         Change theme
       </button>
-      <button data-testid="default-button" className="button" onClick={() => toast('My Toast')}>
+      <button data-testid="default-button" className="button" onClick={() => log('My Toast')}>
         Render Toast
       </button>
-      <button data-testid="default-button-top" className="button" onClick={() => toast('My Toast')}>
+      <button data-testid="default-button-top" className="button" onClick={() => log('My Toast')}>
         Render Toast Top
       </button>
       <button data-testid="success" className="button" onClick={() => toast.success('My Success Toast')}>
@@ -32,7 +32,7 @@ export default function Home({ searchParams }: any) {
         data-testid="action"
         className="button"
         onClick={() =>
-          toast('My Message', {
+          log('My Message', {
             action: {
               label: 'Action',
               onClick: () => console.log('Action'),
@@ -46,7 +46,7 @@ export default function Home({ searchParams }: any) {
         data-testid="action-prevent"
         className="button"
         onClick={() =>
-          toast('My Message', {
+          log('My Message', {
             action: {
               label: 'Action',
               onClick: (event) => {
@@ -94,7 +94,7 @@ export default function Home({ searchParams }: any) {
         data-testid="custom-cancel-button-toast"
         className="button"
         onClick={() =>
-          toast('My Custom Cancel Button', {
+          log('My Custom Cancel Button', {
             cancel: {
               label: 'Cancel',
               onClick: () => console.log('Cancel'),
@@ -104,14 +104,14 @@ export default function Home({ searchParams }: any) {
       >
         Render Custom Cancel Button
       </button>
-      <button data-testid="infinity-toast" className="button" onClick={() => toast('My Toast', { duration: Infinity })}>
+      <button data-testid="infinity-toast" className="button" onClick={() => log('My Toast', { duration: Infinity })}>
         Render Infinity Toast
       </button>
       <button
         data-testid="auto-close-toast-callback"
         className="button"
         onClick={() =>
-          toast('My Toast', {
+          log('My Toast', {
             onAutoClose: () => setShowAutoClose(true),
           })
         }
@@ -122,7 +122,7 @@ export default function Home({ searchParams }: any) {
         data-testid="dismiss-toast-callback"
         className="button"
         onClick={() =>
-          toast('My Toast', {
+          log('My Toast', {
             onDismiss: () => setShowDismiss(true),
           })
         }
@@ -133,7 +133,7 @@ export default function Home({ searchParams }: any) {
         data-testid="non-dismissible-toast"
         className="button"
         onClick={() =>
-          toast('My Toast', {
+          log('My Toast', {
             dismissible: false,
           })
         }
@@ -144,10 +144,10 @@ export default function Home({ searchParams }: any) {
         data-testid="update-toast"
         className="button"
         onClick={() => {
-          const toastId = toast('My Unupdated Toast', {
+          const toastId = log('My Unupdated Toast', {
             duration: 10000,
           });
-          toast('My Updated Toast', {
+          log('My Updated Toast', {
             id: toastId,
             duration: 10000,
           });
@@ -158,26 +158,24 @@ export default function Home({ searchParams }: any) {
       <button
         data-testid="string-description"
         className="button"
-        onClick={() => toast('Custom Description', { description: 'string description' })}
+        onClick={() => log('Custom Description', { description: 'string description' })}
       >
         String Description
       </button>
       <button
         data-testid="react-node-description"
         className="button"
-        onClick={() => toast('Custom Description', { description: <div>This is my custom ReactNode description</div> })}
+        onClick={() => log('Custom Description', { description: <div>This is my custom ReactNode description</div> })}
       >
         ReactNode Description
       </button>
       {showAutoClose ? <div data-testid="auto-close-el" /> : null}
       {showDismiss ? <div data-testid="dismiss-el" /> : null}
-      <Toaster
-        position={searchParams.position || 'bottom-right'}
+      <LogList
         toastOptions={{
           actionButtonStyle: { backgroundColor: 'rgb(219, 239, 255)' },
           cancelButtonStyle: { backgroundColor: 'rgb(254, 226, 226)' },
         }}
-        theme={theme}
         dir={searchParams.dir || 'auto'}
       />
     </>

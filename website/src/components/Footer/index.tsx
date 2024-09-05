@@ -10,8 +10,8 @@ export const Footer = () => {
           <Image alt="Emil's profile picture" src={emil} height={24} width={24} />
           <span>
             Made by{' '}
-            <a href="https://twitter.com/emilkowalski_" target="_blank">
-              Emil.
+            <a href="https://twitter.com/PolGubau_" target="_blank">
+              Pol Gubau Amores
             </a>
           </span>
         </p>

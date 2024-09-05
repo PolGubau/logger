@@ -1,9 +1,9 @@
 import { Tab, Tabs, Cards, Card, Steps } from 'nextra-theme-docs';
-import { toast } from 'sonner';
+import { toast } from '@codedbypol/logger';
 
 # Getting Started
 
-Sonner is an opinionated toast component for React. You can read more about why and how it was built [here](https://emilkowal.ski/ui/building-a-toast-component).
+Logger is an opinionated toast component for React. You can read more about why and how it was built [here](https://polgubau.com/ui/building-a-toast-component).
 
 <Steps>
 ### Install
@@ -11,23 +11,23 @@ Sonner is an opinionated toast component for React. You can read more about why 
 <Tabs items={['pnpm', 'npm', 'yarn', 'bun']}>
   <Tab>
     ```bash
-    pnpm i sonner
+    pnpm i @codedbypol/logger
     ```
 
   </Tab>
   <Tab>
     ```bash
-    npm i sonner
+    npm i @codedbypol/logger
     ```
   </Tab>
   <Tab>
     ```bash
-    yarn add sonner
+    yarn add @codedbypol/logger
     ```
   </Tab>
     <Tab>
     ```bash
-    bun add sonner
+    bun add @codedbypol/logger
     ```
   </Tab>
 </Tabs>
@@ -37,7 +37,7 @@ Sonner is an opinionated toast component for React. You can read more about why 
 It can be placed anywhere, even in server components such as `layout.tsx`.
 
 ```tsx
-import { Toaster } from 'sonner';
+import { Toaster } from '@codedbypol/logger';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -54,10 +54,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ### Render a toast
 
 ```tsx
-import { toast } from 'sonner';
+import { toast } from '@codedbypol/logger';
 
 function MyToast() {
-  return <button onClick={() => toast('This is a sonner toast')}>Render my toast</button>;
+  return <button onClick={() => toast('This is a logger toast')}>Render my toast</button>;
 }
 ```
 

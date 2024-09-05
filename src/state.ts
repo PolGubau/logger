@@ -1,4 +1,4 @@
-import type { ExternalToast, PromiseData, PromiseT, ToastT, ToastToDismiss, ToastTypes } from './types';
+import type { ExternalToast, PromiseData, PromiseT, LogType, ToastToDismiss, LogTypes } from './types';
 
 import React from 'react';
 
@@ -6,7 +6,7 @@ let toastsCounter = 1;
 
 class Observer {
   subscribers: Array<(toast: ExternalToast | ToastToDismiss) => void>;
-  toasts: Array<ToastT | ToastToDismiss>;
+  toasts: Array<LogType | ToastToDismiss>;
 
   constructor() {
     this.subscribers = [];
@@ -14,7 +14,7 @@ class Observer {
   }
 
   // We use arrow functions to maintain the correct `this` reference
-  subscribe = (subscriber: (toast: ToastT | ToastToDismiss) => void) => {
+  subscribe = (subscriber: (toast: LogType | ToastToDismiss) => void) => {
     this.subscribers.push(subscriber);
 
     return () => {
@@ -23,11 +23,11 @@ class Observer {
     };
   };
 
-  publish = (data: ToastT) => {
+  publish = (data: LogType) => {
     this.subscribers.forEach((subscriber) => subscriber(data));
   };
 
-  addToast = (data: ToastT) => {
+  addToast = (data: LogType) => {
     this.publish(data);
     this.toasts = [...this.toasts, data];
   };
@@ -35,7 +35,7 @@ class Observer {
   create = (
     data: ExternalToast & {
       message?: string | React.ReactNode;
-      type?: ToastTypes;
+      type?: LogTypes;
       promise?: PromiseT;
       jsx?: React.ReactElement;
     },
@@ -201,7 +201,7 @@ const basicToast = toastFunction;
 const getHistory = () => ToastState.toasts;
 
 // We use `Object.assign` to maintain the correct types as we would lose them otherwise
-export const toast = Object.assign(
+export const log = Object.assign(
   basicToast,
   {
     success: ToastState.success,

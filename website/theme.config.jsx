@@ -1,12 +1,12 @@
 export default {
-  logo: <span style={{ fontWeight: 600 }}>Sonner</span>,
+  logo: <span style={{ fontWeight: 600 }}>Logger</span>,
   project: {
-    link: 'https://github.com/emilkowalski/sonner',
+    link: 'https://github.com/PolGubau/logger',
   },
-  docsRepositoryBase: 'https://github.com/emilkowalski/sonner/tree/main/website',
+  docsRepositoryBase: 'https://github.com/PolGubau/logger/tree/main/website',
   useNextSeoProps() {
     return {
-      titleTemplate: '%s – Sonner',
+      titleTemplate: '%s – Logger',
     };
   },
   feedback: {
@@ -16,8 +16,8 @@ export default {
     text: (
       <span>
         MIT {new Date().getFullYear()} ©{' '}
-        <a href="https://sonner.emilkowal.ski" target="_blank">
-          Sonner
+        <a href="https://logger.polgubau.com" target="_blank">
+          Logger
         </a>
         .
       </span>

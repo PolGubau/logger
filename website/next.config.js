@@ -6,7 +6,7 @@ const nextConfig = {
 };
 
 const withNextra = require('nextra')({
-  title: 'Sonner',
+  title: 'Logger',
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.jsx',
   defaultShowCopyCode: true,

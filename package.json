@@ -1,7 +1,7 @@
 {
   "name": "@codedbypol/logger",
   "version": "1.5.0",
-  "description": "An opinionated logging UI and logic for React.",
+  "description": "A complete logging UI and logic for React.",
   "exports": {
     "types": "./dist/index.d.ts",
     "import": "./dist/index.mjs",
@@ -44,6 +44,7 @@
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.3",
     "tsup": "^6.4.0",
     "turbo": "1.6",
     "typescript": "^4.8.4"
@@ -52,5 +53,8 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
-  "packageManager": "pnpm@8.12.1"
+  "packageManager": "pnpm@8.12.1",
+  "dependencies": {
+    "pol-ui": "^2.1.1052"
+  }
 }

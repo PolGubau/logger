@@ -1,4 +1,4 @@
-import { toast } from 'sonner';
+import { toast } from '@codedbypol/logger';
 import { CodeBlock } from '../CodeBlock';
 
 export const ExpandModes = ({

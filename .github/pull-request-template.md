@@ -1,6 +1,6 @@
 ### Issue:
 
-Closes https://github.com/emilkowalski/sonner/issues/
+Closes https://github.com/PolGubau/logger/issues/
 
 ### What has been done:
 
