@@ -150,8 +150,7 @@ export interface ToastProps {
   classNames?: LogClassnames;
   icons?: LogIcons;
   closeButtonAriaLabel?: string;
-  cn: CnFunction;
-}
+ }
 
 export enum SwipeStateTypes {
   SwipedOut = 'SwipedOut',

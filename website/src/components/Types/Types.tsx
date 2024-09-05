@@ -1,8 +1,8 @@
 import React from 'react';
-import { toast } from '@codedbypol/logger';
+import { log } from '@codedbypol/logger';
 import { CodeBlock } from '../CodeBlock';
 
-const promiseCode = '`${data.name} toast has been added`';
+const promiseCode = '`${data.name} log has been added`';
 
 export const Types = () => {
   const [activeType, setActiveType] = React.useState(allTypes[0]);
@@ -10,7 +10,7 @@ export const Types = () => {
   return (
     <div>
       <h2>Types</h2>
-      <p>You can customize the type of toast you want to render, and pass an options object as the second argument.</p>
+      <p>You can customize the type of log you want to render, and pass an options object as the second argument.</p>
       <div className="buttons">
         {allTypes.map((type) => (
           <button
@@ -34,49 +34,49 @@ export const Types = () => {
 const allTypes = [
   {
     name: 'Default',
-    snippet: `toast('Event has been created')`,
-    action: () => toast('Event has been created'),
+    snippet: `log('Event has been created')`,
+    action: () => log('Event has been created'),
   },
   {
     name: 'Description',
-    snippet: `toast.message('Event has been created', {
+    snippet: `log.message('Event has been created', {
   description: 'Monday, January 3rd at 6:00pm',
 })`,
     action: () =>
-      toast('Event has been created', {
+      log('Event has been created', {
         description: 'Monday, January 3rd at 6:00pm',
       }),
   },
   {
     name: 'Success',
-    snippet: `toast.success('Event has been created')`,
-    action: () => toast.success('Event has been created'),
+    snippet: `log.success('Event has been created')`,
+    action: () => log.success('Event has been created'),
   },
   {
     name: 'Info',
-    snippet: `toast.info('Be at the area 10 minutes before the event time')`,
-    action: () => toast.info('Be at the area 10 minutes before the event time'),
+    snippet: `log.info('Be at the area 10 minutes before the event time')`,
+    action: () => log.info('Be at the area 10 minutes before the event time'),
   },
   {
     name: 'Warning',
-    snippet: `toast.warning('Event start time cannot be earlier than 8am')`,
-    action: () => toast.warning('Event start time cannot be earlier than 8am'),
+    snippet: `log.warning('Event start time cannot be earlier than 8am')`,
+    action: () => log.warning('Event start time cannot be earlier than 8am'),
   },
   {
     name: 'Error',
-    snippet: `toast.error('Event has not been created')`,
-    action: () => toast.error('Event has not been created'),
+    snippet: `log.error('Event has not been created')`,
+    action: () => log.error('Event has not been created'),
   },
   {
     name: 'Action',
-    snippet: `toast('Event has been created', {
+    snippet: `log('Event has been created', {
   action: {
     label: 'Undo',
     onClick: () => console.log('Undo')
   },
 })`,
     action: () =>
-      toast.message('Event has been created', {
+      log.message('Event has been created', {
         action: {
           label: 'Undo',
           onClick: () => console.log('Undo'),
@@ -87,7 +87,7 @@ const allTypes = [
     name: 'Promise',
     snippet: `const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Logger' }), 2000));
 
-toast.promise(promise, {
+log.promise(promise, {
   loading: 'Loading...',
   success: (data) => {
     return ${promiseCode};
@@ -95,7 +95,7 @@ toast.promise(promise, {
   error: 'Error',
 });`,
     action: () =>
-      toast.promise<{ name: string }>(
+      log.promise<{ name: string }>(
         () =>
           new Promise((resolve) => {
             setTimeout(() => {
@@ -105,7 +105,7 @@ toast.promise(promise, {
         {
           loading: 'Loading...',
           success: (data) => {
-            return `${data.name} toast has been added`;
+            return `${data.name} log has been added`;
           },
           error: 'Error',
         },
@@ -113,7 +113,7 @@ toast.promise(promise, {
   },
   {
     name: 'Custom',
-    snippet: `toast(<div>A custom toast with default styling</div>)`,
-    action: () => toast(<div>A custom toast with default styling</div>, { duration: 1000000 }),
+    snippet: `log(<div>A custom log with default styling</div>)`,
+    action: () => log(<div>A custom log with default styling</div>, { duration: 1000000 }),
   },
 ];

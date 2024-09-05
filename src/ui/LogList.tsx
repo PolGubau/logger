@@ -3,14 +3,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { LogListProps, LogType, ToastToDismiss } from '../types';
-import { getDocumentDirection, cn as _cn } from 'pol-ui';
+import { getDocumentDirection, cn } from 'pol-ui';
 import { Log } from './Log';
 import { ToastState } from '../state';
 
 const LogList = (props: LogListProps) => {
   const {
     hotkey = ['altKey', 'KeyT'],
-    closeButton,
+    closeButton = true,
     className,
     duration,
     toastOptions,
@@ -18,7 +18,6 @@ const LogList = (props: LogListProps) => {
     loadingIcon,
     icons,
     containerAriaLabel = 'Notifications',
-    cn = _cn,
   } = props;
   const [logs, setLogs] = React.useState<LogType[]>([]);
 
@@ -108,7 +107,6 @@ const LogList = (props: LogListProps) => {
             removeToast={removeToast}
             toasts={[log]}
             loadingIcon={loadingIcon}
-            cn={cn}
           />
         ))}
       </ol>

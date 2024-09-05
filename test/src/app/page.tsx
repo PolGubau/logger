@@ -1,6 +1,6 @@
 'use client';
 
- import { LogList, log } from '@codedbypol/logger';
+import { LogList, log } from '@codedbypol/logger';
 import React from 'react';
 
 const promise = () => new Promise((resolve) => setTimeout(resolve, 2000));
@@ -22,10 +22,10 @@ export default function Home({ searchParams }: any) {
       <button data-testid="default-button-top" className="button" onClick={() => log('My Toast')}>
         Render Toast Top
       </button>
-      <button data-testid="success" className="button" onClick={() => toast.success('My Success Toast')}>
+      <button data-testid="success" className="button" onClick={() => log.success('My Success Toast')}>
         Render Success Toast
       </button>
-      <button data-testid="error" className="button" onClick={() => toast.error('My Error Toast')}>
+      <button data-testid="error" className="button" onClick={() => log.error('My Error Toast')}>
         Render Error Toast
       </button>
       <button
@@ -64,7 +64,7 @@ export default function Home({ searchParams }: any) {
         data-finally={isFinally ? '1' : '0'}
         className="button"
         onClick={() =>
-          toast.promise(promise, {
+          log.promise(promise, {
             loading: 'Loading...',
             success: 'Loaded',
             error: 'Error',
@@ -78,10 +78,10 @@ export default function Home({ searchParams }: any) {
         data-testid="custom"
         className="button"
         onClick={() =>
-          toast.custom((t) => (
+          log.custom((t) => (
             <div>
               <h1>jsx</h1>
-              <button data-testid="dismiss-button" onClick={() => toast.dismiss(t)}>
+              <button data-testid="dismiss-button" onClick={() => log.dismiss(t)}>
                 Dismiss
               </button>
             </div>

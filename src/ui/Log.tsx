@@ -6,6 +6,7 @@ import { useIsDocumentHidden } from '../hooks';
 import { TIME_BEFORE_UNMOUNT } from '../constants';
 import React from 'react';
 import { getAsset, Loader } from '../assets';
+import { cn } from 'pol-ui';
 
 export const Log = (props: ToastProps) => {
   const {
@@ -24,7 +25,6 @@ export const Log = (props: ToastProps) => {
     classNames,
     icons,
     closeButtonAriaLabel = 'Close toast',
-    cn,
   } = props;
   const [mounted, setMounted] = useState(false);
   const [removed, setRemoved] = useState(false);
@@ -107,6 +107,11 @@ export const Log = (props: ToastProps) => {
         classNames?.default,
         classNames?.[toastType],
         toast?.classNames?.[toastType],
+        'w-full p-2',
+        {
+          'bg-info-200': toastType === 'info',
+          'bg-error-200': toastType === 'error',
+        },
       )}
       data-logger-toast=""
       data-styled={!Boolean(toast.jsx || toast.unstyled || unstyled)}

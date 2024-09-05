@@ -1,4 +1,4 @@
-import { toast } from '@codedbypol/logger';
+import { log } from '@codedbypol/logger';
 import { CodeBlock } from '../CodeBlock';
 
 export const ExpandModes = ({
@@ -12,14 +12,14 @@ export const ExpandModes = ({
     <div>
       <h2>Expand</h2>
       <p>
-        You can change the amount of toasts visible through the <code>visibleToasts</code> prop.
+        You can change the amount of logs visible through the <code>visiblelogs</code> prop.
       </p>
       <div className="buttons">
         <button
           data-active={expand}
           className="button"
           onClick={() => {
-            toast('Event has been created', {
+            log('Event has been created', {
               description: 'Monday, January 3rd at 6:00pm',
             });
             setExpand(true);
@@ -31,7 +31,7 @@ export const ExpandModes = ({
           data-active={!expand}
           className="button"
           onClick={() => {
-            toast('Event has been created', {
+            log('Event has been created', {
               description: 'Monday, January 3rd at 6:00pm',
             });
             setExpand(false);
@@ -40,7 +40,7 @@ export const ExpandModes = ({
           Default
         </button>
       </div>
-      <CodeBlock>{`<Toaster expand={${expand}} />`}</CodeBlock>
+      <CodeBlock>{`<loger expand={${expand}} />`}</CodeBlock>
     </div>
   );
 };
