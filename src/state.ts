@@ -1,20 +1,20 @@
-import type { ExternalToast, PromiseData, PromiseT, LogType, ToastToDismiss, LogTypes } from './types';
+import type { ExternalLog, PromiseData, PromiseT, LogType, LogToDismiss, LogTypes } from './types';
 
 import React from 'react';
 
 let toastsCounter = 1;
 
 class Observer {
-  subscribers: Array<(toast: ExternalToast | ToastToDismiss) => void>;
-  toasts: Array<LogType | ToastToDismiss>;
+  subscribers: Array<(log: ExternalLog | LogToDismiss) => void>;
+  logs: Array<LogType | LogToDismiss>;
 
   constructor() {
     this.subscribers = [];
-    this.toasts = [];
+    this.logs = [];
   }
 
   // We use arrow functions to maintain the correct `this` reference
-  subscribe = (subscriber: (toast: LogType | ToastToDismiss) => void) => {
+  subscribe = (subscriber: (toast: LogType | LogToDismiss) => void) => {
     this.subscribers.push(subscriber);
 
     return () => {
@@ -27,13 +27,13 @@ class Observer {
     this.subscribers.forEach((subscriber) => subscriber(data));
   };
 
-  addToast = (data: LogType) => {
+  addLog = (data: LogType) => {
     this.publish(data);
-    this.toasts = [...this.toasts, data];
+    this.logs = [...this.logs, data];
   };
 
   create = (
-    data: ExternalToast & {
+    data: ExternalLog & {
       message?: string | React.ReactNode;
       type?: LogTypes;
       promise?: PromiseT;
@@ -42,13 +42,13 @@ class Observer {
   ) => {
     const { message, ...rest } = data;
     const id = typeof data?.id === 'number' || data.id?.length > 0 ? data.id : toastsCounter++;
-    const alreadyExists = this.toasts.find((toast) => {
+    const alreadyExists = this.logs.find((toast) => {
       return toast.id === id;
     });
     const dismissible = data.dismissible === undefined ? true : data.dismissible;
 
     if (alreadyExists) {
-      this.toasts = this.toasts.map((toast) => {
+      this.logs = this.logs.map((toast) => {
         if (toast.id === id) {
           this.publish({ ...toast, ...data, id, title: message });
           return {
@@ -63,7 +63,7 @@ class Observer {
         return toast;
       });
     } else {
-      this.addToast({ title: message, ...rest, dismissible, id });
+      this.addLog({ title: message, ...rest, dismissible, id });
     }
 
     return id;
@@ -71,7 +71,7 @@ class Observer {
 
   dismiss = (id?: number | string) => {
     if (!id) {
-      this.toasts.forEach((toast) => {
+      this.logs.forEach((toast) => {
         this.subscribers.forEach((subscriber) => subscriber({ id: toast.id, dismiss: true }));
       });
     }
@@ -80,27 +80,27 @@ class Observer {
     return id;
   };
 
-  message = (message: string | React.ReactNode, data?: ExternalToast) => {
+  message = (message: string | React.ReactNode, data?: ExternalLog) => {
     return this.create({ ...data, message });
   };
 
-  error = (message: string | React.ReactNode, data?: ExternalToast) => {
+  error = (message: string | React.ReactNode, data?: ExternalLog) => {
     return this.create({ ...data, message, type: 'error' });
   };
 
-  success = (message: string | React.ReactNode, data?: ExternalToast) => {
+  success = (message: string | React.ReactNode, data?: ExternalLog) => {
     return this.create({ ...data, type: 'success', message });
   };
 
-  info = (message: string | React.ReactNode, data?: ExternalToast) => {
+  info = (message: string | React.ReactNode, data?: ExternalLog) => {
     return this.create({ ...data, type: 'info', message });
   };
 
-  warning = (message: string | React.ReactNode, data?: ExternalToast) => {
+  warning = (message: string | React.ReactNode, data?: ExternalLog) => {
     return this.create({ ...data, type: 'warning', message });
   };
 
-  loading = (message: string | React.ReactNode, data?: ExternalToast) => {
+  loading = (message: string | React.ReactNode, data?: ExternalLog) => {
     return this.create({ ...data, type: 'loading', message });
   };
 
@@ -164,7 +164,7 @@ class Observer {
     return id;
   };
 
-  custom = (jsx: (id: number | string) => React.ReactElement, data?: ExternalToast) => {
+  custom = (jsx: (id: number | string) => React.ReactElement, data?: ExternalLog) => {
     const id = data?.id || toastsCounter++;
     this.create({ jsx: jsx(id), id, ...data });
     return id;
@@ -174,10 +174,9 @@ class Observer {
 export const ToastState = new Observer();
 
 // bind this to the toast function
-const toastFunction = (message: string | React.ReactNode, data?: ExternalToast) => {
+const toastFunction = (message: string | React.ReactNode, data?: ExternalLog) => {
   const id = data?.id || toastsCounter++;
-
-  ToastState.addToast({
+  ToastState.addLog({
     title: message,
     ...data,
     id,
@@ -198,7 +197,7 @@ const isHttpResponse = (data: any): data is Response => {
 
 const basicToast = toastFunction;
 
-const getHistory = () => ToastState.toasts;
+const getHistory = () => ToastState.logs;
 
 // We use `Object.assign` to maintain the correct types as we would lose them otherwise
 export const log = Object.assign(

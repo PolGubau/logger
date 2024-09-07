@@ -9,7 +9,7 @@ export type PromiseTResult<Data = any> =
   | React.ReactNode
   | ((data: Data) => React.ReactNode | string | Promise<React.ReactNode | string>);
 
-export type PromiseExternalLog = Omit<ExternalToast, 'description'>;
+export type PromiseExternalLog = Omit<ExternalLog, 'description'>;
 
 export type PromiseData<LogData = any> = PromiseExternalLog & {
   loading?: string | React.ReactNode;
@@ -88,7 +88,7 @@ export interface HeightT {
   toastId: number | string;
 }
 
-interface ToastOptions {
+interface LogOptions {
   className?: string;
   closeButton?: boolean;
   descriptionClassName?: string;
@@ -103,16 +103,15 @@ interface ToastOptions {
 type CnFunction = (...classes: Array<string | undefined>) => string;
 
 export interface LogListProps {
+  lsKey?: string;
   invert?: boolean;
   theme?: 'light' | 'dark' | 'system';
   hotkey?: string[];
   richColors?: boolean;
   expand?: boolean;
-  duration?: number;
-  gap?: number;
   visibleToasts?: number;
   closeButton?: boolean;
-  toastOptions?: ToastOptions;
+  toastOptions?: LogOptions;
   className?: string;
   style?: React.CSSProperties;
   offset?: string | number;
@@ -132,17 +131,14 @@ export interface LogListProps {
   cn?: CnFunction;
 }
 
-export interface ToastProps {
+export interface LogProps {
   toast: LogType;
-  toasts: LogType[];
-  index: number;
   removeToast: (toast: LogType) => void;
   gap?: number;
   closeButton: boolean;
   style?: React.CSSProperties;
   cancelButtonStyle?: React.CSSProperties;
   actionButtonStyle?: React.CSSProperties;
-  duration?: number;
   className?: string;
   unstyled?: boolean;
   descriptionClassName?: string;
@@ -150,7 +146,7 @@ export interface ToastProps {
   classNames?: LogClassnames;
   icons?: LogIcons;
   closeButtonAriaLabel?: string;
- }
+}
 
 export enum SwipeStateTypes {
   SwipedOut = 'SwipedOut',
@@ -160,11 +156,11 @@ export enum SwipeStateTypes {
 
 export type Theme = 'light' | 'dark';
 
-export interface ToastToDismiss {
+export interface LogToDismiss {
   id: number | string;
   dismiss: boolean;
 }
 
-export type ExternalToast = Omit<LogType, 'id' | 'type' | 'title' | 'jsx' | 'delete' | 'promise'> & {
+export type ExternalLog = Omit<LogType, 'id' | 'type' | 'title' | 'jsx' | 'delete' | 'promise'> & {
   id?: number | string;
 };

@@ -1,32 +1,36 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { ToastState } from '../state';
+import { useLocalStorage } from 'pol-ui';
 import { LogType } from '../types';
 
-export function useLogger() {
-  const [activeToasts, setActiveToasts] = useState<LogType[]>([]);
+export function useLogger(lsKey: string = 'logs') {
+  const [logs, setLogs] = useLocalStorage<LogType[]>(lsKey, []);
 
-  useEffect(() => {
-    return ToastState.subscribe((toast) => {
-      setActiveToasts((currentToasts) => {
-        if ('dismiss' in toast && toast.dismiss) {
-          return currentToasts.filter((t) => t.id !== toast.id);
-        }
+  const log = (log: LogType) => {
+    setLogs((prevLogs) => [...prevLogs, log]);
+  };
 
-        const existingToastIndex = currentToasts.findIndex((t) => t.id === toast.id);
-        if (existingToastIndex !== -1) {
-          const updatedToasts = [...currentToasts];
-          updatedToasts[existingToastIndex] = { ...updatedToasts[existingToastIndex], ...toast };
-          return updatedToasts;
-        } else {
-          return [toast, ...currentToasts];
-        }
-      });
+  const deleteLog = (id: string | number) => {
+    setLogs((prevLogs) => prevLogs.filter((log) => log.id !== id));
+  };
+
+  const deleteLogByIndex = (index: number) => {
+    setLogs((prevLogs) => {
+      const newLogs = [...prevLogs];
+      newLogs.splice(index, 1);
+      return newLogs;
     });
-  }, []);
+  };
+
+  const clearLogs = () => {
+    setLogs([]);
+  };
 
   return {
-    toasts: activeToasts,
+    logs,
+    log,
+    deleteLog,
+    deleteLogByIndex,
+    clearLogs,
   };
 }

@@ -6,7 +6,7 @@ const Head = () => (
   <NextHead>
     {/* Title */}
     <title>Logger</title>
-    <meta name="og:title" content="Logger" />
+    <meta name="og:title" content="Logger - Pol Gubau" />
 
     {/* Description */}
     <meta name="description" content="A complete logging UI and logic for React" />
@@ -23,8 +23,8 @@ const Head = () => (
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta httpEquiv="Content-Language" content="en" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@PolGubau_" />
-    <meta name="author" content="Emil Kowalski" />
+    <meta name="twitter:site" content="@PolGubau" />
+    <meta name="author" content="Pol Gubau Amores" />
 
     {/* Favicons */}
     <meta name="msapplication-TileColor" content="#ffffff" />

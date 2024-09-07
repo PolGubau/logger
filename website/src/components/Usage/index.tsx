@@ -1,13 +1,12 @@
 import { CodeBlock } from '../CodeBlock';
+import SubTitle from '../ui/SubTitle';
 
 export const Usage = () => {
   return (
     <div>
-      <h2>Usage</h2>
+      <SubTitle>Usage</SubTitle>
       <p>Render the toaster in the root of your app.</p>
       <CodeBlock initialHeight={270}>{`import { Toaster, toast } from 'logger'
-
-// ...
 
 function App() {
   return (

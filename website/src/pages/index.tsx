@@ -8,22 +8,24 @@ import Head from '../components/Head';
 import { How } from '../components/How/How';
 import { Footer } from '../components/Footer';
 import AppProvider from '../components/Providers/AppProvider';
+import { UiOptions } from '../components/UiOptions';
 
 export default function Home() {
   return (
     <AppProvider>
-      <div className="wrapper light">
+      <div>
         <Head />
-        <main className="container">
+        <main suppressHydrationWarning className="md:max-w-2xl flex flex-col gap-8 p-4 pt-24 w-full">
           <Hero />
           <LogList />
-          <div className="content">
-            <Installation />
-            <Usage />
-            <Types />
 
-            <How />
-          </div>
+          {/*  */}
+          <Installation />
+          <Usage />
+          <UiOptions />
+          <Types />
+
+          <How />
         </main>
         <Footer />
       </div>
